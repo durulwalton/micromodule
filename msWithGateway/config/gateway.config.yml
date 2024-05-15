@@ -1,0 +1,46 @@
+http:
+  port: 4000
+
+apiEndpoints:
+  auth-apis:
+    host: localhost
+    paths: ["/api/auth", "/api/auth/*"]
+  pms-apis:
+    host: localhost
+    paths: ["/api/pms", "/api/pms/*"]
+serviceEndpoints:
+  authService:
+    url: "http://localhost:4001"
+  pmsService:
+    url: "http://localhost:4002"
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  authPipeline:
+    apiEndpoints:
+      - auth-apis
+    policies:
+      # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+      # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: authService
+              changeOrigin: true
+
+  pmsPipeline:
+    apiEndpoints:
+      - pms-apis
+    policies:
+      # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+      # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: pmsService
+              changeOrigin: true

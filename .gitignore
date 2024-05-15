@@ -1,0 +1,9 @@
+/authService/node_modules
+/chatService/node_modules
+/msWithGateway/node_modules
+/pms/node_modules
+
+/authService/package-lock.json
+/chatService/package-lock.json
+/msWithGateway/package-lock.json
+/pms/package-lock.json
